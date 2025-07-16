@@ -50,7 +50,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "vege_shop.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "vege_shop.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
