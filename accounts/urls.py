@@ -3,7 +3,7 @@ from .import views
 
 app_name = "accounts"
 urlpatterns = [
-    path('', views.home, name='home'),
+  
   
     path('about/', views.about, name='about'),
     path('signup/', views.register, name='register'),
