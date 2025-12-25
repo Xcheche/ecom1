@@ -16,19 +16,25 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
 
 urlpatterns = [
+    # -------------Admin Panel----------------
     path("admin/", admin.site.urls),
-    path("accounts/", include("accounts.urls",namespace="accounts")),
-    path("contact/",include("contact.urls",namespace="contact")),
+    # -------------Django Browser Reload----------------
+    path("__reload__/", include("django_browser_reload.urls")),  # for hot reload
+    # -------------App URLs----------------
+    path("cart/", include("cart.urls", namespace="cart")),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("contact/", include("contact.urls", namespace="contact")),
     path("blog/", include("blog.urls", namespace="blog")),
-    path("", include("store.urls", namespace="store"))
+    path("", include("store.urls", namespace="store")),
 ]
+# -------------Media & Static Files----------------
 if settings.DEBUG:
-   
+
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

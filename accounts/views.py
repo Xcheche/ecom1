@@ -4,16 +4,16 @@ from django.shortcuts import render
 
 
 def about(request):
-    return render(request, 'accounts/about.html')
+    return render(request, "accounts/about.html")
 
 
 def register(request):
-    return render(request, 'accounts/signup.html')
+    return render(request, "accounts/signup.html")
+
 
 def login(request):
-    return render(request, 'accounts/login.html')
+    return render(request, "accounts/login.html")
 
 
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
-
+    return render(request, "accounts/dashboard.html")

@@ -93,10 +93,11 @@
                             <!-- End .product-title -->
                             <div class="product-price">
                                 {% if product.is_on_sale %}
-                                <s class="previous-price">$ {{ product.previous_price }}</s>
-                                <span class="sale-price">  $ {{ product.current_price }}</span>
+                                <s class="previous-price">${{ product.previous_price|floatformat:0|intcomma }}</s> &nbsp  
+                                
+                                <span class="sale-price">${{ product.current_price|floatformat:0|intcomma }}</span>
                                 {% else %}
-                                <span class="price">${{ product.display_price }}</span>
+                                <span class="price">${{ product.current_price|floatformat:0|intcomma }}</span>
                                 {% endif %}
                             
                             </div>
@@ -146,25 +147,58 @@
                                 <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
                             </div><!-- End .details-filter-row -->
 
-                            <div class="details-filter-row details-row-size">
-                                <label for="qty">Qty:</label>
-                                <div class="product-details-quantity">
-                                    <input type="number" id="qty" class="form-control" value="1" min="1" max="10"
-                                        step="1" data-decimals="0" required>
-                                </div><!-- End .product-details-quantity -->
-                            </div><!-- End .details-filter-row -->
-
-                            <!-- TODO: Add product variations like color, size, etc from the model-->
+                            <div class="cart-product-quantity d-flex align-items-center">
+                            
+                                <a href="{% url 'cart:decrease_cart' product.id %}" class="btn-minus">
+                                    <i class="icon-minus"></i>
+                                </a>
+                            
+                                <span class="mx-2">{{ cart_qty }}</span>
+                            
+                                <a href="{% url 'cart:add_cart' product.id %}" class="btn-plus">
+                                    <i class="icon-plus"></i>
+                                </a>
+                            
+                            </div>
+                            
                             <div class="product-details-action">
-                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-
-                                <div class="details-action-wrapper">
-                                    <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
-                                            Wishlist</span></a>
-                                    <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
-                                            Compare</span></a>
-                                </div><!-- End .details-action-wrapper -->
-                            </div><!-- End .product-details-action -->
+                            
+                                {% if product.stock <= 0 %} <span class="badge badge-danger">Out of Stock</span>
+                            
+                                    {% else %}
+                            
+                                    {% if in_cart %}
+                                    <!-- Added to cart state -->
+                                    <a href="{% url 'cart:cart' %}" class="btn-product btn-cart disabled" aria-disabled="true">
+                                        <i class="icon-checkmark"></i>
+                                        <span>Added to Cart</span>
+                                    </a>
+                                    <!--View car-->
+                                    <a href="{% url 'cart:cart' %}" class="btn-product btn-cart disabled" aria-disabled="true">
+                                        <i class="icon-checkmark"></i>
+                                        <span>View Cart</span>
+                                    </a>
+                            
+                                    {% else %}
+                                    <!-- Add to cart -->
+                                    <a href="{% url 'cart:add_cart' product.id %}" class="btn-product btn-cart">
+                                        <span>Add to Cart</span>
+                                    </a>
+                                    {% endif %}
+                            
+                                    {% endif %}
+                            
+                                    <div class="details-action-wrapper">
+                                        <a href="#" class="btn-product btn-wishlist" title="Wishlist">
+                                            <span>Add to Wishlist</span>
+                                        </a>
+                                        <a href="#" class="btn-product btn-compare" title="Compare">
+                                            <span>Add to Compare</span>
+                                        </a>
+                                    </div>
+                            
+                            </div>
+                            
 
                             <div class="product-details-footer">
                                 <div class="product-cat">

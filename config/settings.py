@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
+    "django_browser_reload",  # for hot reload
     "accounts",  # Custom app for user accounts
     "contact",
     "store",
+    "cart",
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",  # for hot reload
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -64,8 +68,15 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # Custom context processors
-                'store.context_processors.menu_links',  # Custom context processor
+                # ------- Custom context processors-----------------------
+                # Custom context processor for menu links or categories
+                "store.context_processors.menu_links",
+                # Custom context processor for cart count
+                "cart.context_processors.counter",
+            ],
+            #------------------ Adding humanize to built-in template tags-----------------
+            "builtins": [
+                "django.contrib.humanize.templatetags.humanize",
             ],
         },
     },
@@ -114,6 +125,9 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+# Naira symbol
+
+NAIRA_SYMBOL = "\u20a6"
 
 
 # Static files (CSS, JavaScript, Images)
@@ -123,7 +137,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-#Media files (User-uploaded files)
+# Media files (User-uploaded files)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
