@@ -76,13 +76,13 @@
 
 									<td class="price-col">
 										{% if item.product.is_on_sale %}
-										<s>${{ item.product.previous_price }}</s> <span class="sale-price">${{ item.product.current_price }}</span>
+										<s>&#8358;{{ item.product.previous_price }}</s> <span class="sale-price">&#8358; {{ item.product.current_price }}</span>
 										{% else %}
-										${{ item.product.current_price }}
+										&#8358;{{ item.product.current_price }}
 										{% endif %}
 									</td>
 									<td class="total-col">
-										${{ item.sub_total|floatformat:0|intcomma }}
+										&#8358;{{ item.sub_total|floatformat:0|intcomma }}
 										<br>
 										<small>x {{ item.quantity }}</small>
 									</td>
@@ -123,11 +123,11 @@
 								<tbody>
 									<tr class="summary-subtotal">
 										<td>Total:</td>
-										<td>${{ total|floatformat:0|intcomma }}</td>
+										<td>&#8358;{{ total|floatformat:0|intcomma }}</td>
 									</tr><!-- End .summary-subtotal -->
 									<tr class="summary-subtotal">
 										<td>Tax:</td>
-										<td>${{ tax|floatformat:0|intcomma }}</td>
+										<td>&#8358;{{ tax|floatformat:0|intcomma }}</td>
 									</tr><!-- End .summary-subtotal -->
 									<tr class="summary-shipping">
 										<td>Shipping:</td>
@@ -178,7 +178,7 @@
 
 									<tr class="summary-total">
 										<td>GrandTotal:</td>
-										<td>${{ grand_total|floatformat:0|intcomma }}</td>
+										<td>&#8358;{{ grand_total|floatformat:0|intcomma }}</td>
 									</tr><!-- End .summary-total -->
 								</tbody>
 							</table><!-- End .table table-summary -->

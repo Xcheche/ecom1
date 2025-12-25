@@ -93,11 +93,11 @@
                             <!-- End .product-title -->
                             <div class="product-price">
                                 {% if product.is_on_sale %}
-                                <s class="previous-price">${{ product.previous_price|floatformat:0|intcomma }}</s> &nbsp  
+                                <s class="previous-price">&#8358;{{ product.previous_price|floatformat:0|intcomma }}</s> &nbsp  
                                 
-                                <span class="sale-price">${{ product.current_price|floatformat:0|intcomma }}</span>
+                                <span class="sale-price">&#8358;{{ product.current_price|floatformat:0|intcomma }}</span>
                                 {% else %}
-                                <span class="price">${{ product.current_price|floatformat:0|intcomma }}</span>
+                                <span class="price">&#8358;{{ product.current_price|floatformat:0|intcomma }}</span>
                                 {% endif %}
                             
                             </div>
@@ -146,7 +146,8 @@
 
                                 <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
                             </div><!-- End .details-filter-row -->
-
+                            <!--Prevent from adding /decreasing to cart if not in cart-->
+                            {% if in_cart %}
                             <div class="cart-product-quantity d-flex align-items-center">
                             
                                 <a href="{% url 'cart:decrease_cart' product.id %}" class="btn-minus">
@@ -160,6 +161,7 @@
                                 </a>
                             
                             </div>
+                            {% endif %}
                             
                             <div class="product-details-action">
                             

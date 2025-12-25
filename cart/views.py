@@ -21,7 +21,7 @@ def _cart_id(request):
 
 # -------------------Adding cart view --------------------
 
-
+#Main
 def add_cart(request, product_id):
     """Adding cart items to the cart"""
     product = Product.objects.get(id=product_id)  # Get the product
@@ -45,6 +45,11 @@ def add_cart(request, product_id):
     # return HttpResponse(cart_item.product_name)
     # exit()
     return redirect(request.META.get("HTTP_REFERER", "cart:cart"))
+
+
+
+
+
 
 
 #-------------------Decrease cart view --------------------
