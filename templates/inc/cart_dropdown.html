@@ -20,12 +20,7 @@
 
                     <span class="cart-product-info">
                         <span class="cart-product-qty">{{ item.quantity }}</span>
-                        {% if item.product.is_on_sale %}
-                        x &#8358;<s>{{ item.product.previous_price|floatformat:0|intcomma }}</s> -
-                        <span class="sale-price">&#8358;{{ item.product.current_price|floatformat:0|intcomma }}</span>
-                        {% else %}
-                        x &#8358;{{ item.product.current_price|floatformat:0|intcomma }}
-                        {% endif %}
+                        x &#8358;{{ item.product.price|floatformat:0|intcomma }}
                     </span>
                 </div><!-- End .product-cart-details -->
 

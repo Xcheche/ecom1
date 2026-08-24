@@ -36,8 +36,7 @@ class CartItem(models.Model):
         verbose_name = "CartItem"
         verbose_name_plural = "CartItems"
 
-
-# =================== cart model  method================
+    # =================== cart model  method================
     def sub_total(self):
         """We get product.price because we have product model and price field"""
-        return self.product.display_price * self.quantity
+        return self.product.price * self.quantity

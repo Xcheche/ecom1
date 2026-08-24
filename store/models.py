@@ -1,4 +1,3 @@
-from django.utils import timezone
 from django.db import models
 from django.urls import reverse
 
@@ -51,13 +50,8 @@ class Product(models.Model):
     product_image3 = models.ImageField(upload_to="product_images/%Y/%m/%d/")
     product_image4 = models.ImageField(upload_to="product_images/%Y/%m/%d/")
 
-    # ===Determine if the product is on sale===
-    previous_price = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True
-    )
-    current_price = models.DecimalField(max_digits=10, decimal_places=2)
-    sale_start = models.DateTimeField(null=True, blank=True)
-    sale_end = models.DateTimeField(null=True, blank=True)
+    # ===Price===
+    price = models.IntegerField()
 
     # ===Check if the product is in stock and available for purchase===
     stock = models.IntegerField()
@@ -70,55 +64,14 @@ class Product(models.Model):
     average_rating = models.FloatField(default=0)
     review_count = models.IntegerField(default=0)
 
-    # ===SEO fields===
-    meta_title = models.CharField(max_length=100, blank=True)
-    meta_keywords = models.CharField(max_length=255, blank=True)
-    meta_description = models.CharField(max_length=255, blank=True)
-
     # ===Timestamps===
     created_date = models.DateField(auto_now_add=True)
     modified_date = models.DateField(auto_now=True)
     ##Better to use django taggit for product tags
 
-    # ===New arrivals tracking===
-
-    new_since = models.DateTimeField(null=True, blank=True)
-
-    # New arrivals logic
-    @property
-    def new(self):
-        if not self.new_since:
-            return False
-        return timezone.now() - self.new_since < timezone.timedelta(
-            days=30
-        )  # new = created within last 30 days
-
-    # Discount logic
-
-    @property
-    def is_on_sale(self):
-        """Check if the product is currently on sale based on the sale period."""
-        now = timezone.now()
-        return (
-            self.sale_start
-            and self.sale_end
-            and self.sale_start <= now <= self.sale_end
-        )
-
-    @property
-    # def display_price(self):
-    #     """Return the price to display based on whether the product is on sale."""
-    #     if self.is_on_sale:
-    #         return self.current_price
-    #     return self.previous_price or self.current_price
-  
-    def display_price(self):
-        return self.current_price
-
-
     # String representation
     def __str__(self):
-        return f"{self.product_name} ({self.current_price})"
+        return f"{self.product_name} ({self.price})"
 
     class Meta:
         verbose_name = "product"
@@ -127,3 +80,11 @@ class Product(models.Model):
     # get url
     def get_absolute_url(self):
         return reverse("store:product_detail", args=[self.category.slug, self.slug])
+
+    @property
+    def new_product(self):
+        """Return True if the product was created within the last 30 days."""
+        from django.utils import timezone
+        from datetime import timedelta
+
+        return self.created_date >= timezone.now().date() - timedelta(days=30)

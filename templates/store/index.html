@@ -136,7 +136,7 @@
 
             <div class="container">
                 
-                <h2 class="title text-center">Fetured Products</h2><!-- End .title -->
+                <h2 class="title text-center">Products</h2><!-- End .title -->
 
                 <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
                 <li class="nav-item">
@@ -144,6 +144,7 @@
                         All {{  links|length }} ({{ products|length }}) 
                     </a>
                 </li>
+                <!-- Links for each category -->
                     {% for cat in links %}
                     <li class="nav-item">
                         <a class="nav-link {% if category and category.id == cat.id %}active{% endif %}"
@@ -152,6 +153,7 @@
                         </a>
                     </li>
                     {% endfor %}
+                    <!--End of Links for each category-->
                     
                 </ul>
                 
@@ -160,32 +162,25 @@
                     <div class="tab-pane fade show active" id="tab-new" role="tabpanel" aria-labelledby="tab-new-link">
                         <div class="row justify-content-center">
                             {% for product in products %}
+                            
                             <div class="col-6 col-md-4 col-lg-3">
                                 <div class="product product-4">
                                     <figure class="product-media">
-                                      
-                                      {% if product.is_on_sale %}
-                                    <span class="product-label label-sale"
-                                        style="animation: flash 1s infinite; background-color: #dc3545 !important; color: #fff !important;">
-                                        Sale
-                                    </span>
 
-                                    {% endif %}
-
-                                        {% if product.new_since|default_if_none:False %}
-                                        <span class="product-label label-new">New</span>
-                                        {% endif %}
                                         <a href="{{ product.get_absolute_url }}">
+                                        {% if product.new_product %}
+                                            <span class="product-label label-new">New</span>
+                                        {% endif %}
                                             <img src="{{ product.product_image1.url }}" alt="Product image" class="product-image">
                                             <img src="{{ product.product_image2.url }}" alt="Product image" class="product-image-hover">
                                         </a>
                                         <div class="product-action-vertical">
-                                            <a href="{{ product.get_absolute_url }}" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                             <a href="{{ product.get_absolute_url }}" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
                                             <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
                                         </div><!-- End .product-action -->
                                         <div class="product-action">
-                                            <a href="{% url 'cart:add_cart' product.id %}" class="btn-product btn-cart"><span>add to cart</span></a>
+                                            <a href="{{ product.get_absolute_url }}" class="btn-product btn-cart"><span>View  Details</span></a>
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
                                     <div class="product-body">
@@ -194,18 +189,13 @@
                                         </div><!-- End .product-cat -->
                                         <h3 class="product-title"><a href="{{ product.get_absolute_url }}">{{ product.product_name }} </a></h3><!-- End .product-title -->
                                         <div class="product-price">
-                                            {% if product.is_on_sale %}
-                                            <s class="previous-price">&#8358;{{ product.previous_price|floatformat:0|intcomma }}</s> &nbsp
-                                            <span class="sale-price">&#8358;{{ product.current_price|floatformat:0|intcomma }}</span>
-                                            {% else %}
-                                            <span class="price">&#8358;{{ product.current_price|floatformat:0|intcomma }}</span>
-                                            {% endif %}
-                                        
+                                            <span class="price">&#8358;{{ product.price|floatformat:0|intcomma }}</span>
                                         </div><!-- End .product-price -->
-                                        <div class="product-nav product-nav-dots">
+                                        <!-- <div class="product-nav product-nav-dots">
                                             <a href="#" class="active" style="background: #e5dcb1;"><span class="sr-only">Color name</span></a>
                                             <a href="#" style="background: #bacbd8;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
+                                        </div> -->
+                                        <!-- End .product-nav -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product -->
                             </div><!-- End .col-6 col-md-4 col-lg-3 -->
@@ -214,9 +204,9 @@
                     </div><!-- End .tab-pane -->
                 </div><!-- End .tab-content -->
 
-                <div class="mb-3"></div><!-- End .mb-3 -->
-
-
+               
+{% include 'inc/paginate.html' %}
+            </div><!-- End .container -->
 
 <!--Newsletter-->            
 

@@ -75,11 +75,7 @@
 									</td>
 
 									<td class="price-col">
-										{% if item.product.is_on_sale %}
-										<s>&#8358;{{ item.product.previous_price }}</s> <span class="sale-price">&#8358; {{ item.product.current_price }}</span>
-										{% else %}
-										&#8358;{{ item.product.current_price }}
-										{% endif %}
+										&#8358;{{ item.product.price }}
 									</td>
 									<td class="total-col">
 										&#8358;{{ item.sub_total|floatformat:0|intcomma }}

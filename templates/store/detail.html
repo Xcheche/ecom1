@@ -92,14 +92,7 @@
                             <h1 class="product-title">{{ product.product_name }}</h1>
                             <!-- End .product-title -->
                             <div class="product-price">
-                                {% if product.is_on_sale %}
-                                <s class="previous-price">&#8358;{{ product.previous_price|floatformat:0|intcomma }}</s> &nbsp  
-                                
-                                <span class="sale-price">&#8358;{{ product.current_price|floatformat:0|intcomma }}</span>
-                                {% else %}
-                                <span class="price">&#8358;{{ product.current_price|floatformat:0|intcomma }}</span>
-                                {% endif %}
-                            
+                                <span class="price">&#8358;{{ product.price|floatformat:0|intcomma }}</span>
                             </div>
 
                             <div class="ratings-container">

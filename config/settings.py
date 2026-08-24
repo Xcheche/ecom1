@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "django_browser_reload",  # for hot reload
+    "django_extensions",  # for shell_plus
     "accounts",  # Custom app for user accounts
     "contact",
     "store",
@@ -74,7 +75,7 @@ TEMPLATES = [
                 # Custom context processor for cart count
                 "cart.context_processors.counter",
             ],
-            #------------------ Adding humanize to built-in template tags-----------------
+            # ------------------ Adding humanize to built-in template tags-----------------
             "builtins": [
                 "django.contrib.humanize.templatetags.humanize",
             ],

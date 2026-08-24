@@ -18,18 +18,17 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "product_name",
         "slug",
-        "current_price",
+        "price",
         "is_available",
         "stock",
         "average_rating",
         "review_count",
-        "sale_start",
-        "sale_end",
+        "created_date",
     )
     prepopulated_fields = {"slug": ("product_name",)}
     search_fields = ("product_name", "description", "short_description")
-    list_filter = ("is_available", "stock", "current_price")
-    list_editable = ("is_available", "stock", "current_price", "sale_start", "sale_end")
+    list_filter = ("is_available", "stock", "price")
+    list_editable = ("is_available", "stock", "price")
     prepopulated_fields = {"slug": ("product_name",)}
 
 
